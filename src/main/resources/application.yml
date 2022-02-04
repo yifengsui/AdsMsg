@@ -1,0 +1,26 @@
+server:
+  port: 8088
+#  servlet:
+#    context-path: /test
+  reactive:
+    session:
+      timeout: 30
+
+spring:
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3310/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+    username: root
+    password: 111111
+    driver-class-name: com.mysql.cj.jdbc.Driver       #数据库链接驱动
+
+mybatis:
+  type-aliases-package: com.example.ads_msg.bean      #配置实体类
+  mapper-locations: classpath:mapper/*.xml     #配置映射文件
+
+
+#logging:
+#  level:
+#    com.example.ads_msg.mapper: debug
+#  config: classpath:logBack.xml

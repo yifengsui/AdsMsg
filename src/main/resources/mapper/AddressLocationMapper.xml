@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ads_msg.dao.mapper.AddressLocationMapper">
+    <resultMap id="BaseResultMap" type="com.example.ads_msg.dao.po.AddressLocationPO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="address_name" property="addressName" jdbcType="VARCHAR"/>
+        <result column="longitude" property="longitude" jdbcType="VARCHAR"/>
+        <result column="latitude" property="latitude" jdbcType="VARCHAR"/>
+        <result column="building_level" property="buildingLevel" jdbcType="VARCHAR"/>
+        <result column="data_confidence" property="dataConfidence" jdbcType="VARCHAR"/>
+        <result column="error_msg" property="errorMsg" jdbcType="VARCHAR"/>
+        <result column="is_valid" property="isValid" jdbcType="TINYINT"/>
+        <result column="gmt_create" property="gmtCreate" jdbcType="VARCHAR"/>
+        <result column="gmt_modified" property="gmtModified" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,address_name,longitude,latitude,building_level,data_confidence,error_msg,is_valid,gmt_create,
+        building_level,data_confidence,error_msg,is_valid,gmt_create,gmt_modified
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from address_location
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryAddressLocationMapperByAddressName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from address_location where is_valid = 1
+        <if test="addressName !=null and addressName !=''">and address_name=#{addressName}</if>
+        <if test="buildingLevel !=null and addressName !=''">and building_level=#{buildingLevel}</if>
+    </select>
+
+    <delete id="delByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from address_location
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.ads_msg.dao.po.AddressLocationPO">
+        update address_location
+        <trim prefix="set" suffixOverrides=",">
+            <if test="addressName !=null">
+                address_name=#{addressName,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude !=null">
+                longitude=#{longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude !=null">
+                latitude=#{latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="buildingLevel !=null">
+                building_level=#{buildingLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="dataConfidence !=null">
+                data_confidence=#{dataConfidence,jdbcType=VARCHAR},
+            </if>
+            <if test="errorMsg !=null">
+                error_msg=#{errorMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="isValid !=null">
+                is_valid=#{isValid,jdbcType=TINYINT},
+            </if>
+            <if test="gmtCreate !=null">
+                gmt_create=#{gmtCreate,jdbcType=DATE},
+            </if>
+            <if test="gmtModified !=null">
+                gmt_modified=#{gmtModified,jdbcType=DATE}
+            </if>
+        </trim>
+            where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.example.ads_msg.dao.po.AddressLocationPO">
+        update address_location
+        set address_name=#{addressName,jdbcType=VARCHAR},
+            longitude=#{longitude,jdbcType=VARCHAR},
+            latitude=#{latitude,jdbcType=VARCHAR},
+            building_level=#{buildingLevel,jdbcType=VARCHAR},
+            data_confidence=#{dataConfidence,jdbcType=VARCHAR},
+            error_msg=#{errorMsg,jdbcType=VARCHAR},
+            is_valid=#{isValid,jdbcType=TINYINT},
+            gmt_create=#{gmtCreate,jdbcType=DATE},
+            gmt_modified=#{gmtModified,jdbcType=DATE}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.ads_msg.dao.po.AddressLocationPO"
+            useGeneratedKeys="true">
+        insert into address_location (id, address_name, longitude, latitude, building_level, data_confidence, error_msg,
+                                      is_valid, gmt_create,gmt_modifiedbuilding_level, data_confidence, error_msg,
+                                      is_valid, gmt_create,gmt_modified)
+        values (address_name = #{addressName,jdbcType=VARCHAR}, longitude = #{longitude,jdbcType=VARCHAR},
+                latitude = #{latitude,jdbcType=VARCHAR},building_level = #{buildingLevel,jdbcType=VARCHAR},
+                data_confidence = #{dataConfidence,jdbcType=VARCHAR}, error_msg = #{errorMsg,jdbcType=VARCHAR},
+                is_valid = #{isValid,jdbcType=TINYINT}, gmt_create = #{gmtCreate,jdbcType=DATE},
+                gmt_modified = #{gmtModified,jdbcType=DATE})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.example.ads_msg.dao.po.AddressLocationPO"
+            useGeneratedKeys="true">
+        insert into address_location
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="addressName !=null">
+                address_name,
+            </if>
+            <if test="longitude !=null">
+                longitude,
+            </if>
+            <if test="latitude !=null">
+                latitude,
+            </if>
+            <if test="buildingLevel !=null">
+                building_level,
+            </if>
+            <if test="dataConfidence !=null">
+                data_confidence,
+            </if>
+            <if test="errorMsg !=null">
+                error_msg,
+            </if>
+            <if test="isValid !=null">
+                is_valid,
+            </if>
+            <if test="gmtCreate !=null">
+                gmt_create,
+            </if>
+            <if test="gmtModified !=null">
+                gmt_modified,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="addressName !=null">
+                #{addressName,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude !=null">
+                #{longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude !=null">
+                #{latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="buildingLevel !=null">
+                #{buildingLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="dataConfidence !=null">
+                #{dataConfidence,jdbcType=VARCHAR},
+            </if>
+            <if test="errorMsg !=null">
+                #{errorMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="isValid !=null">
+                #{isValid,jdbcType=TINYINT},
+            </if>
+            <if test="gmtCreate !=null">
+                #{gmtCreate,jdbcType=DATE},
+            </if>
+            <if test="gmtModified !=null">
+                #{gmtModified,jdbcType=DATE}
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
